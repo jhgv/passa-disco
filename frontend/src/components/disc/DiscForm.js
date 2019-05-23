@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
 
 class DiscForm extends React.Component {
   renderError({ error, touched }) {
@@ -67,6 +68,9 @@ class DiscForm extends React.Component {
             <Field name="cover" component={this.renderInput} label="Cover" />
           </div>
         </div>
+        <Link to="/" className="btn btn-link mr-3">
+          Back
+        </Link>
         <button className="btn btn-primary">Submit</button>
       </form>
     );
