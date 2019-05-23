@@ -9,16 +9,10 @@ class DiscForm extends React.Component {
     }
   }
 
-  renderInput = ({ input, label, meta, inputType = 'text' }) => {
-    const typeProps =
-      inputType !== 'number'
-        ? { type: inputType }
-        : { type: 'number', step: 'any' };
-
+  renderInput = ({ input, label, meta }) => {
     const className = `form-control ${
       meta.error && meta.touched ? 'is-invalid' : ''
     }`;
-
     return (
       <div>
         <label>{label}</label>
@@ -26,12 +20,32 @@ class DiscForm extends React.Component {
           {...input}
           autoComplete="off"
           className={className}
-          {...typeProps}
+          type="text"
         />
         {this.renderError(meta)}
       </div>
     );
   };
+
+  adaptFileEventToValue = delegate => e => delegate(e.target.files[0]);
+
+  renderFileInput = ({
+    input: { value: omitValue, onChange, onBlur, ...inputProps },
+    label,
+    ...props
+  }) => (
+    <div>
+      <label>{label}</label>
+      <input
+        onChange={this.adaptFileEventToValue(onChange)}
+        onBlur={this.adaptFileEventToValue(onBlur)}
+        type="file"
+        accept=".jpg, .png, .jpeg"
+        {...inputProps}
+        {...props}
+      />
+    </div>
+  );
 
   onSubmit = formValues => {
     this.props.onSubmit(formValues);
@@ -58,7 +72,11 @@ class DiscForm extends React.Component {
           </div>
 
           <div className="form-group col-md-4">
-            <Field name="cover" component={this.renderInput} label="Cover" />
+            <Field
+              name="cover"
+              label="Cover"
+              component={this.renderFileInput}
+            />
           </div>
         </div>
         <Link to="/" className="btn btn-link mr-3">

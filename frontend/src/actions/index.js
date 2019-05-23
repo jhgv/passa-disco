@@ -11,7 +11,14 @@ import {
 import history from '../history';
 
 export const createDisc = formValues => async (dispatch, getState) => {
-  const response = await discs.post('/discs', formValues);
+  let formData = new FormData();
+  formData.append('cover', formValues.cover);
+  formData.append('disc', formValues);
+  const response = await discs.post('/discs', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  });
   dispatch({ type: CREATE_DISC, payload: response.data });
   history.push('/');
 };
