@@ -64,7 +64,7 @@ class DiscForm extends React.Component {
             />
           </div>
           <div className="form-group col-md-4">
-            <Field name="Cover" component={this.renderInput} label="Cover" />
+            <Field name="cover" component={this.renderInput} label="Cover" />
           </div>
         </div>
         <button className="btn btn-primary">Submit</button>
