@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 import { searchDiscs, fetchDiscs, changeListText } from '../actions';
 
 class SearchBar extends React.Component {
-  onSubmit = formValues => {
-    if (!formValues.search) {
+  onChange = (event, value) => {
+    if (!value) {
       this.props.fetchDiscs();
       this.props.changeListText('Collection');
     } else {
-      this.props.searchDiscs(formValues.search);
-      this.props.changeListText(`Search results for "${formValues.search}"`);
+      this.props.searchDiscs(value);
+      this.props.changeListText(`Search results for "${value}"`);
     }
   };
 
@@ -30,14 +30,18 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
+      <form>
         <div className="input-group input-group-lg mb-5">
           <div className="input-group-prepend">
             <span className="input-group-text" id="inputGroup-sizing-lg">
               <FontAwesomeIcon icon={faSearch} />
             </span>
           </div>
-          <Field name="search" component={this.renderInput} />
+          <Field
+            name="search"
+            component={this.renderInput}
+            onChange={this.onChange}
+          />
         </div>
       </form>
     );
