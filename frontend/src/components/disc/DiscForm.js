@@ -56,14 +56,7 @@ class DiscForm extends React.Component {
               label="Recorder"
             />
           </div>
-          <div className="form-group col-md-4">
-            <Field
-              name="price"
-              component={this.renderInput}
-              label="Price"
-              inputType="number"
-            />
-          </div>
+
           <div className="form-group col-md-4">
             <Field name="cover" component={this.renderInput} label="Cover" />
           </div>
@@ -89,10 +82,6 @@ const validate = formValues => {
 
   if (!formValues.recorder) {
     errors.recorder = 'You must enter a recorder company';
-  }
-
-  if (!formValues.price) {
-    errors.price = 'You must enter a price for the disc';
   }
 
   return errors;

@@ -26,7 +26,6 @@ class DiscUpdate extends React.Component {
             'title',
             'artist',
             'recorder',
-            'price',
             'cover'
           )}
         />
