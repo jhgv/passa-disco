@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
-    "startFake": "json-server -p 3001 -w db.json"
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "json-server": "^0.15.0"
+  "devDependencies": {},
+  "dependencies": {
+    "mysql": "^2.17.1",
+    "restify": "^8.3.2",
+    "restify-errors": "^8.0.0"
   }
 }
