@@ -1,18 +1,45 @@
+import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchDisc } from '../../actions';
+import { fetchDisc, updateDisc } from '../../actions';
+import DiscForm from './DiscForm';
 
 class DiscUpdate extends React.Component {
   componentDidMount() {
-    console.log(this.props.match.params.id);
+    this.props.fetchDisc(this.props.match.params.id);
   }
 
+  onSubmit = formValues => {
+    this.props.updateDisc(this.props.match.params.id, formValues);
+  };
+
   render() {
-    return <div>DiscUpdate</div>;
+    if (!this.props.disc) {
+      return <div>Loading disc...</div>;
+    }
+    return (
+      <div>
+        <DiscForm
+          onSubmit={this.onSubmit}
+          initialValues={_.pick(
+            this.props.disc,
+            'title',
+            'artist',
+            'recorder',
+            'price',
+            'cover'
+          )}
+        />
+      </div>
+    );
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  return { disc: state.discs[ownProps.match.params.id] };
+};
+
 export default connect(
-  null,
-  { fetchDisc }
+  mapStateToProps,
+  { fetchDisc, updateDisc }
 )(DiscUpdate);
