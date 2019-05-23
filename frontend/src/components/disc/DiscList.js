@@ -2,13 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchDiscs } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faImage,
-  faTrash,
-  faEdit,
-  faEye
-} from '@fortawesome/free-solid-svg-icons';
+import { faImage, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import SearchBar from '../SearchBar';
 
 class DiscList extends React.Component {
   componentDidMount() {
@@ -38,9 +34,7 @@ class DiscList extends React.Component {
             <div className="card-body">
               <h5 className="card-title">{disc.title}</h5>
               <p className="card-text text-muted">by {disc.artist}.</p>
-              <Link to="/" className="btn btn-outline-primary btn-sm mr-2">
-                <FontAwesomeIcon icon={faEye} />
-              </Link>
+
               <Link
                 to={`/discs/update/${disc.id}`}
                 className="btn btn-outline-warning btn-sm mr-2"
@@ -63,16 +57,18 @@ class DiscList extends React.Component {
   render() {
     return (
       <div>
-        <h2 className="text-center">Collection</h2>
+        <SearchBar />
+        <h2 className="text-center">{this.props.listText}</h2>
         <div className="row">{this.renderDiscs()}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
   return {
-    discs: Object.values(state.discs)
+    discs: Object.values(state.discs),
+    listText: state.listText
   };
 };
 

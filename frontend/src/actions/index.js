@@ -4,7 +4,9 @@ import {
   FETCH_DISC,
   FETCH_DISCS,
   UPDATE_DISC,
-  DELETE_DISC
+  DELETE_DISC,
+  SEARCH_DISC,
+  CHANGE_LIST_TEXT
 } from './types';
 import history from '../history';
 
@@ -35,3 +37,13 @@ export const deleteDisc = discId => async dispatch => {
   dispatch({ type: DELETE_DISC, payload: discId });
   history.push('/');
 };
+
+export const searchDiscs = search => async dispatch => {
+  const response = await discs.get(`/discs?q=${search}`);
+  dispatch({ type: SEARCH_DISC, payload: response.data });
+};
+
+export const changeListText = value => ({
+  type: CHANGE_LIST_TEXT,
+  payload: value
+});

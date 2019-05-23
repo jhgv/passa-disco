@@ -3,7 +3,8 @@ import {
   FETCH_DISCS,
   FETCH_DISC,
   UPDATE_DISC,
-  DELETE_DISC
+  DELETE_DISC,
+  SEARCH_DISC
 } from '../actions/types';
 import _ from 'lodash';
 
@@ -16,7 +17,9 @@ export default (state = {}, action) => {
     case FETCH_DISC:
       return { ...state, [action.payload.id]: action.payload };
     case FETCH_DISCS:
-      return { ...state, ..._.mapKeys(action.payload, 'id') };
+      return { ..._.mapKeys(action.payload, 'id') };
+    case SEARCH_DISC:
+      return action.payload;
     case DELETE_DISC:
       // payload is the id it self
       return _.omit(state, action.payload);
