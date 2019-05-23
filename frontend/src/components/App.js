@@ -5,7 +5,7 @@ import DiscCreate from './disc/DiscCreate';
 import DiscUpdate from './disc/DiscUpdate';
 import DiscDetail from './disc/DiscDetail';
 import DiscDelete from './disc/DiscDelete';
-import history from './history';
+import history from '../history';
 import Header from './Header';
 
 const App = () => {

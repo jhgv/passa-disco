@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import DiscForm from './DiscForm';
+import { createDisc } from '../../actions';
 
 class DiscCreate extends React.Component {
   onSubmit = formValues => {
-    // TODO: implement action bellow
-    // this.props.createDisc(formValues);
-    console.log(formValues);
+    this.props.createDisc(formValues);
   };
 
   render() {
@@ -19,4 +18,7 @@ class DiscCreate extends React.Component {
   }
 }
 
-export default connect(null)(DiscCreate);
+export default connect(
+  null,
+  { createDisc }
+)(DiscCreate);

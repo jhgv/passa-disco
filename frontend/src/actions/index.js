@@ -9,11 +9,7 @@ import {
 import history from '../history';
 
 export const createDisc = formValues => async (dispatch, getState) => {
-  const { userId } = getState().auth;
-  const response = await discs.post('/discs', {
-    ...formValues,
-    userId: userId
-  });
+  const response = await discs.post('/discs', formValues);
   dispatch({ type: CREATE_DISC, payload: response.data });
   history.push('/');
 };
