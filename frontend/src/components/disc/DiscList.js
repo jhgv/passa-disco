@@ -47,7 +47,10 @@ class DiscList extends React.Component {
               >
                 <FontAwesomeIcon icon={faEdit} />
               </Link>
-              <Link to="/" className="btn btn-outline-danger btn-sm">
+              <Link
+                to={`/discs/delete/${disc.id}`}
+                className="btn btn-outline-danger btn-sm"
+              >
                 <FontAwesomeIcon icon={faTrash} />
               </Link>
             </div>

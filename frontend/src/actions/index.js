@@ -33,4 +33,5 @@ export const updateDisc = (discId, formValues) => async dispatch => {
 export const deleteDisc = discId => async dispatch => {
   await discs.delete(`/discs/${discId}`);
   dispatch({ type: DELETE_DISC, payload: discId });
+  history.push('/');
 };
