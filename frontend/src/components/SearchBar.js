@@ -4,15 +4,15 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { searchDiscs, fetchDiscs, changeListText } from '../actions';
+import { searchAlbums, fetchAlbums, changeListText } from '../actions';
 
 class SearchBar extends React.Component {
   onChange = (event, value) => {
     if (!value) {
-      this.props.fetchDiscs();
+      this.props.fetchAlbums();
       this.props.changeListText('Collection');
     } else {
-      this.props.searchDiscs(value);
+      this.props.searchAlbums(value);
       this.props.changeListText(`Search results for "${value}"`);
     }
   };
@@ -23,7 +23,7 @@ class SearchBar extends React.Component {
         {...input}
         autoComplete="off"
         className="form-control"
-        placeholder="Search for discs"
+        placeholder="Search for albums"
       />
     );
   };
@@ -49,11 +49,11 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { discs: Object.values(state.discs) };
+  return { albums: Object.values(state.albums) };
 };
 
-const searchBarFormWrapped = reduxForm({ form: 'searchDiscs' })(SearchBar);
+const searchBarFormWrapped = reduxForm({ form: 'searchAlbums' })(SearchBar);
 export default connect(
   mapStateToProps,
-  { searchDiscs, fetchDiscs, changeListText }
+  { searchAlbums, fetchAlbums, changeListText }
 )(searchBarFormWrapped);

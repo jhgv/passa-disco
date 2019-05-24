@@ -1,28 +1,28 @@
 import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchDisc, updateDisc } from '../../actions';
-import DiscForm from './DiscForm';
+import { fetchAlbum, updateAlbum } from '../../actions';
+import AlbumForm from './AlbumForm';
 
-class DiscUpdate extends React.Component {
+class AlbumUpdate extends React.Component {
   componentDidMount() {
-    this.props.fetchDisc(this.props.match.params.id);
+    this.props.fetchAlbum(this.props.match.params.id);
   }
 
   onSubmit = formValues => {
-    this.props.updateDisc(this.props.match.params.id, formValues);
+    this.props.updateAlbum(this.props.match.params.id, formValues);
   };
 
   render() {
-    if (!this.props.disc) {
-      return <div>Loading disc...</div>;
+    if (!this.props.album) {
+      return <div>Loading album...</div>;
     }
     return (
       <div>
-        <DiscForm
+        <AlbumForm
           onSubmit={this.onSubmit}
           initialValues={_.pick(
-            this.props.disc,
+            this.props.album,
             'title',
             'artist',
             'recorder',
@@ -35,10 +35,10 @@ class DiscUpdate extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { disc: state.discs[ownProps.match.params.id] };
+  return { album: state.albums[ownProps.match.params.id] };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchDisc, updateDisc }
-)(DiscUpdate);
+  { fetchAlbum, updateAlbum }
+)(AlbumUpdate);

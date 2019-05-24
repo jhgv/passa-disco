@@ -1,26 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchDisc, deleteDisc } from '../../actions';
+import { fetchAlbum, deleteAlbum } from '../../actions';
 
-class DiscDelete extends React.Component {
+class AlbumDelete extends React.Component {
   componentDidMount() {
-    this.props.fetchDisc(this.props.match.params.id);
+    this.props.fetchAlbum(this.props.match.params.id);
   }
 
   onConfirmDeletion = () => {
-    this.props.deleteDisc(this.props.match.params.id);
+    this.props.deleteAlbum(this.props.match.params.id);
   };
 
   render() {
-    if (!this.props.disc) {
+    if (!this.props.album) {
       return <div>Loading...</div>;
     }
     return (
       <div>
-        <h2>Do you want to delete this disc?</h2>
+        <h2>Do you want to delete this album?</h2>
         <h6>
-          {this.props.disc.artist} - {this.props.disc.title}
+          {this.props.album.artist} - {this.props.album.name}
         </h6>
         <Link to="/" className="btn btn-outline-secondary btn-lg mr-2">
           Cancel
@@ -38,10 +38,10 @@ class DiscDelete extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { disc: state.discs[ownProps.match.params.id] };
+  return { album: state.albums[ownProps.match.params.id] };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchDisc, deleteDisc }
-)(DiscDelete);
+  { fetchAlbum, deleteAlbum }
+)(AlbumDelete);

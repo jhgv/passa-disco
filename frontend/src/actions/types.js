@@ -1,7 +1,7 @@
-export const CREATE_DISC = 'CREATE_DISC';
-export const FETCH_DISCS = 'FETCH_DISCS';
-export const FETCH_DISC = 'FETCH_DISC';
-export const UPDATE_DISC = 'UPDATE_DISC';
-export const DELETE_DISC = 'DELETE_DISC';
-export const SEARCH_DISC = 'SEARCH_DISC';
+export const CREATE_ALBUM = 'CREATE_ALBUM';
+export const FETCH_ALBUMS = 'FETCH_ALBUMS';
+export const FETCH_ALBUM = 'FETCH_ALBUM';
+export const UPDATE_ALBUM = 'UPDATE_ALBUM';
+export const DELETE_ALBUM = 'DELETE_ALBUM';
+export const SEARCH_ALBUM = 'SEARCH_ALBUM';
 export const CHANGE_LIST_TEXT = 'CHANGE_LIST_TEXT';

@@ -1,26 +1,26 @@
 import {
-  CREATE_DISC,
-  FETCH_DISCS,
-  FETCH_DISC,
-  UPDATE_DISC,
-  DELETE_DISC,
-  SEARCH_DISC
+  CREATE_ALBUM,
+  FETCH_ALBUMS,
+  FETCH_ALBUM,
+  UPDATE_ALBUM,
+  DELETE_ALBUM,
+  SEARCH_ALBUM
 } from '../actions/types';
 import _ from 'lodash';
 
 export default (state = {}, action) => {
   switch (action.type) {
-    case CREATE_DISC || FETCH_DISC || UPDATE_DISC:
+    case CREATE_ALBUM || FETCH_ALBUM || UPDATE_ALBUM:
       return { ...state, [action.payload.id]: action.payload };
-    case UPDATE_DISC:
+    case UPDATE_ALBUM:
       return { ...state, [action.payload.id]: action.payload };
-    case FETCH_DISC:
+    case FETCH_ALBUM:
       return { ...state, [action.payload.id]: action.payload };
-    case FETCH_DISCS:
+    case FETCH_ALBUMS:
       return { ..._.mapKeys(action.payload, 'id') };
-    case SEARCH_DISC:
+    case SEARCH_ALBUM:
       return action.payload;
-    case DELETE_DISC:
+    case DELETE_ALBUM:
       // payload is the id it self
       return _.omit(state, action.payload);
     default:

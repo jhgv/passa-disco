@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchDiscs } from '../../actions';
+import { fetchAlbums } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 
-class DiscList extends React.Component {
+class AlbumList extends React.Component {
   componentDidMount() {
-    this.props.fetchDiscs();
+    this.props.fetchAlbums();
   }
 
   renderCover({ cover }) {
@@ -25,24 +25,24 @@ class DiscList extends React.Component {
     return <FontAwesomeIcon icon={faImage} style={{ fontSize: '15em' }} />;
   }
 
-  renderDiscs() {
-    return this.props.discs.map(disc => {
+  renderAlbums() {
+    return this.props.albums.map(album => {
       return (
-        <div className="col-sm-3 mb-3" key={disc.id}>
+        <div className="col-sm-3 mb-3" key={album.id}>
           <div className="card" style={{ width: '15rem' }}>
-            {this.renderCover(disc)}
+            {this.renderCover(album)}
             <div className="card-body">
-              <h5 className="card-title">{disc.title}</h5>
-              <p className="card-text text-muted">by {disc.artist}.</p>
+              <h5 className="card-title">{album.title}</h5>
+              <p className="card-text text-muted">by {album.artist}.</p>
 
               <Link
-                to={`/discs/update/${disc.id}`}
+                to={`/album/update/${album.id}`}
                 className="btn btn-outline-warning btn-sm mr-2"
               >
                 <FontAwesomeIcon icon={faEdit} />
               </Link>
               <Link
-                to={`/discs/delete/${disc.id}`}
+                to={`/album/delete/${album.id}`}
                 className="btn btn-outline-danger btn-sm"
               >
                 <FontAwesomeIcon icon={faTrash} />
@@ -59,7 +59,7 @@ class DiscList extends React.Component {
       <div>
         <SearchBar />
         <h2 className="text-center">{this.props.listText}</h2>
-        <div className="row">{this.renderDiscs()}</div>
+        <div className="row">{this.renderAlbums()}</div>
       </div>
     );
   }
@@ -67,12 +67,12 @@ class DiscList extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    discs: Object.values(state.discs),
+    albums: Object.values(state.albums),
     listText: state.listText
   };
 };
 
 export default connect(
   mapStateToProps,
-  { fetchDiscs }
-)(DiscList);
+  { fetchAlbums }
+)(AlbumList);

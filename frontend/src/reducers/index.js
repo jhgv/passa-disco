@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
-import discReducer from './discReducer';
-import discListTextReducer from './discListTextReducer';
+import albumReducer from './albumReducer';
+import albumListTextReducer from './albumListTextReducer';
 
 export default combineReducers({
   form: formReducer,
-  discs: discReducer,
-  listText: discListTextReducer
+  albums: albumReducer,
+  listText: albumListTextReducer
 });

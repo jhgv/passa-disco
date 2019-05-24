@@ -2,7 +2,7 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 
-class DiscForm extends React.Component {
+class AlbumForm extends React.Component {
   renderError({ error, touched }) {
     if (touched && error) {
       return <div className="invalid-feedback">{error}</div>;
@@ -105,4 +105,4 @@ const validate = formValues => {
   return errors;
 };
 
-export default reduxForm({ form: 'discForm', validate })(DiscForm);
+export default reduxForm({ form: 'AlbumForm', validate })(AlbumForm);

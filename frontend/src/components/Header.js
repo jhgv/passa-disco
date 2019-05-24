@@ -18,8 +18,8 @@ const Header = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to="/discs/create" className="nav-link">
-                Create Disc
+              <Link to="/album/create" className="nav-link">
+                Create Album
               </Link>
             </li>
           </ul>
