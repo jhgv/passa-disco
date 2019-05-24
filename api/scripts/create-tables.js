@@ -18,7 +18,8 @@ function createAlbumTable(conn) {
       creation_date TIMESTAMP NOT NULL,
       last_update TIMESTAMP,
       cover MEDIUMBLOB,
-      PRIMARY KEY (id)
+      PRIMARY KEY (id),
+      FULLTEXT (name, artist)
   );`;
 
   conn.query(sql, function(error, results, fields) {

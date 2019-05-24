@@ -4,6 +4,14 @@ const validators = require('../util/validators');
 const sqlParsers = require('../util/sqlParsers');
 
 module.exports.getAlbums = async (req, res, next) => {
+  if (req.query && req.query.hasOwnProperty('q')) {
+    const textQuery = req.query.q;
+    var result = await pool.query(
+      `SELECT id, name, year, artist, genre, creation_date FROM album WHERE MATCH (name, artist) AGAINST ('*${textQuery}*' IN BOOLEAN MODE)`
+    );
+    res.send(result);
+    return next();
+  }
   var result = await pool.query(
     'SELECT id, name, year, artist, genre, creation_date, last_update FROM album'
   );

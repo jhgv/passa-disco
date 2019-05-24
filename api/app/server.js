@@ -4,7 +4,9 @@ const corsMiddleware = require('restify-cors-middleware');
 
 const cors = corsMiddleware({
   preflightMaxAge: 5, //Optional
-  origins: ['*']
+  origins: ['*'],
+  allowHeaders: ['*'],
+  exposeHeaders: []
 });
 
 const server = restify.createServer({
@@ -12,10 +14,10 @@ const server = restify.createServer({
   version: '1.0.0'
 });
 
-server.pre(cors.preflight);
 server.use(restify.plugins.acceptParser(server.acceptable));
 server.use(restify.plugins.queryParser());
 server.use(restify.plugins.bodyParser());
+server.pre(cors.preflight);
 server.use(cors.actual);
 
 server.listen(8080, function() {
