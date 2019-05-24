@@ -15,8 +15,8 @@ function createAlbumTable(conn) {
       artist VARCHAR(255) NOT NULL,
       year INT(4) NOT NULL,
       genre VARCHAR(50) NOT NULL,
-      creation_date DATE,
-      last_update DATE,
+      creation_date TIMESTAMP NOT NULL,
+      last_update TIMESTAMP,
       cover MEDIUMBLOB,
       PRIMARY KEY (id)
   );`;
