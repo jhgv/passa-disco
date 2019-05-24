@@ -4,30 +4,31 @@ const validators = require('../util/validators');
 const sqlParsers = require('../util/sqlParsers');
 
 module.exports.getAlbums = async (req, res, next) => {
+  let rows = [],
+    fields = [];
   if (req.query && req.query.hasOwnProperty('q')) {
     const textQuery = req.query.q;
-    var result = await pool.query(
-      `SELECT id, name, year, artist, genre, creation_date FROM album WHERE MATCH (name, artist) AGAINST ('*${textQuery}*' IN BOOLEAN MODE)`
+    [rows, fields] = await pool.query(
+      `SELECT id, name, year, artist, genre, creation_date FROM album WHERE MATCH (name, artist) AGAINST ('${textQuery}*' IN BOOLEAN MODE)`
     );
-    res.send(result);
-    return next();
+  } else {
+    [rows, fields] = await pool.query(
+      'SELECT id, name, year, artist, genre, creation_date, last_update FROM album'
+    );
   }
-  var result = await pool.query(
-    'SELECT id, name, year, artist, genre, creation_date, last_update FROM album'
-  );
-  res.send(result);
+  res.send(rows);
   return next();
 };
 
 module.exports.getAlbum = async (req, res, next) => {
   const { id } = req.params;
-  var result = await pool.query(
+  var [rows, fields] = await pool.query(
     `SELECT id, name, year, artist, genre, creation_date, last_update FROM album WHERE id=${id}`
   );
-  if (!result || result.length === 0) {
+  if (!rows || rows.length === 0) {
     return res.send(new errs.NotFoundError('Album could not be found!'));
   }
-  res.send(result[0]);
+  res.send(rows[0]);
   return next();
 };
 

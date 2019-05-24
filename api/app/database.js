@@ -1,13 +1,12 @@
-var mysql = require('mysql');
-var util = require('util');
-var pool = mysql.createPool({
-  connectionLimit: 10,
+var mysql = require('mysql2');
+var poolConnection = mysql.createPool({
   host: '127.0.0.1',
   user: 'root',
   password: '',
   database: 'pd'
 });
-pool.getConnection((err, connection) => {
+
+poolConnection.getConnection((err, connection) => {
   if (err) {
     if (err.code === 'PROTOCOL_CONNECTION_LOST') {
       console.error('Database connection was closed.');
@@ -23,6 +22,4 @@ pool.getConnection((err, connection) => {
   return;
 });
 
-pool.query = util.promisify(pool.query);
-
-module.exports = pool;
+module.exports = poolConnection.promise();
