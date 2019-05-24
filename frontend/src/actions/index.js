@@ -11,14 +11,10 @@ import {
 import history from '../history';
 
 export const createAlbum = formValues => async (dispatch, getState) => {
-  let formData = new FormData();
-  formData.append('cover', formValues.cover);
-  formData.append('album', formValues);
-  const response = await albumAPI.post('/album', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
-  });
+  // let formData = new FormData();
+  // formData.append('cover', formValues.cover);
+  // formData.append('album', formValues);
+  const response = await albumAPI.post('/album', formValues);
   dispatch({ type: CREATE_ALBUM, payload: response.data });
   history.push('/');
 };
@@ -34,7 +30,7 @@ export const fetchAlbum = albumId => async dispatch => {
 };
 
 export const updateAlbum = (albumId, formValues) => async dispatch => {
-  const response = await albumAPI.patch(`/album/${albumId}`, formValues);
+  const response = await albumAPI.put(`/album/${albumId}`, formValues);
   dispatch({ type: UPDATE_ALBUM, payload: response.data });
   history.push('/');
 };

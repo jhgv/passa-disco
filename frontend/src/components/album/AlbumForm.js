@@ -9,7 +9,7 @@ class AlbumForm extends React.Component {
     }
   }
 
-  renderInput = ({ input, label, meta }) => {
+  renderInput = ({ input, label, meta, inputType }) => {
     const className = `form-control ${
       meta.error && meta.touched ? 'is-invalid' : ''
     }`;
@@ -20,7 +20,7 @@ class AlbumForm extends React.Component {
           {...input}
           autoComplete="off"
           className={className}
-          type="text"
+          type={inputType}
         />
         {this.renderError(meta)}
       </div>
@@ -56,7 +56,11 @@ class AlbumForm extends React.Component {
       <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
         <div className="form-row">
           <div className="form-group col-md-6">
-            <Field name="title" component={this.renderInput} label="Title" />
+            <Field
+              name="name"
+              component={this.renderInput}
+              label="Album name"
+            />
           </div>
           <div className="form-group col-md-6">
             <Field name="artist" component={this.renderInput} label="Artist" />
@@ -64,13 +68,16 @@ class AlbumForm extends React.Component {
         </div>
         <div className="form-row">
           <div className="form-group col-md-4">
+            <Field name="genre" component={this.renderInput} label="Genre" />
+          </div>
+          <div className="form-group col-md-2">
             <Field
-              name="recorder"
+              name="year"
               component={this.renderInput}
-              label="Recorder"
+              label="Year"
+              inputType="number"
             />
           </div>
-
           <div className="form-group col-md-4">
             <Field
               name="cover"

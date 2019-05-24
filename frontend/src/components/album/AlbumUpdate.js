@@ -23,9 +23,10 @@ class AlbumUpdate extends React.Component {
           onSubmit={this.onSubmit}
           initialValues={_.pick(
             this.props.album,
-            'title',
+            'name',
             'artist',
-            'recorder',
+            'genre',
+            'year',
             'cover'
           )}
         />

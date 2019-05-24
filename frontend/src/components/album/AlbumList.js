@@ -32,8 +32,13 @@ class AlbumList extends React.Component {
           <div className="card" style={{ width: '15rem' }}>
             {this.renderCover(album)}
             <div className="card-body">
-              <h5 className="card-title">{album.title}</h5>
-              <p className="card-text text-muted">by {album.artist}.</p>
+              <h4 className="card-title">{album.name}</h4>
+              <p className="card-text">by {album.artist}.</p>
+              <p className="card-text text-muted">
+                <small className="text-muted">
+                  {album.genre} - {album.year}
+                </small>
+              </p>
 
               <Link
                 to={`/album/update/${album.id}`}
