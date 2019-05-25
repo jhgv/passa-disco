@@ -75,7 +75,7 @@ class AlbumList extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     albums: Object.values(state.albums),
     listText: state.listText

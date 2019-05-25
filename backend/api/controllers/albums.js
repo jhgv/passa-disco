@@ -8,11 +8,11 @@ module.exports.getAlbums = async (req, res, next) => {
   if (req.query && req.query.hasOwnProperty('q')) {
     const textQuery = req.query.q;
     [rows, fields] = await pool.query(
-      `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE MATCH (name, artist) AGAINST ('${textQuery}*' IN BOOLEAN MODE)`
+      `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE MATCH (name, artist) AGAINST ('${textQuery}*' IN BOOLEAN MODE) ORDER BY creation_date DESC`
     );
   } else {
     [rows, fields] = await pool.query(
-      'SELECT id, name, year, artist, genre, creation_date, cover_image FROM album'
+      'SELECT id, name, year, artist, genre, creation_date, cover_image FROM album ORDER BY creation_date DESC'
     );
   }
   res.send(rows);
@@ -51,7 +51,6 @@ module.exports.editAlbum = async (req, res, next) => {
   const { id } = req.params;
   const filePath = req.file ? req.file.path : 'NULL';
   const reqBodyWithFilePath = { ...req.body, cover_image: filePath };
-  console.log(reqBodyWithFilePath);
   const queryUpdatedValues = sqlUtils.parseRequestBodyToUpdateValues(
     reqBodyWithFilePath
   );
