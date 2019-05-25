@@ -1,5 +1,5 @@
-var mysql = require('mysql2');
-var poolConnection = mysql.createPool({
+const mysql = require('mysql2');
+const poolConnection = mysql.createPool({
   host: '127.0.0.1',
   user: 'root',
   port: 3306,

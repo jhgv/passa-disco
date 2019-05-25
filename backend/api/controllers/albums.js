@@ -20,7 +20,7 @@ module.exports.getAlbums = async (req, res, next) => {
 
 module.exports.getAlbum = async (req, res, next) => {
   const { id } = req.params;
-  var [rows, fields] = await pool.query(
+  const [rows, fields] = await pool.query(
     `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE id=${id}`
   );
   if (!rows || rows.length === 0) {
@@ -33,10 +33,10 @@ module.exports.getAlbum = async (req, res, next) => {
 module.exports.createAlbum = async (req, res, next) => {
   const errorMessages = validators.validatePostAlbum(req.body);
   if (Object.keys(errorMessages).length > 0) {
-    res.status(500).json({ errors: errorMessages });
+    return res.status(500).json({ errors: errorMessages });
   }
   const filePath = req.file ? pool.escape(req.file.path) : 'NULL';
-  var [result, fields] = await pool.query(
+  const [result, fields] = await pool.query(
     `INSERT INTO album(name, artist, year, genre, cover_image) VALUES(
         ${pool.escape(req.body.name)},${pool.escape(
       req.body.artist
@@ -54,7 +54,7 @@ module.exports.editAlbum = async (req, res, next) => {
   const queryUpdatedValues = sqlUtils.parseRequestBodyToUpdateValues(
     reqBodyWithFilePath
   );
-  var [result, fields] = await pool.query(
+  const [result, fields] = await pool.query(
     `UPDATE album SET ${queryUpdatedValues} WHERE id=${id}`
   );
   res.send({ ...req.body, id: parseInt(id, 10) });

@@ -1,10 +1,14 @@
+# Passa Disco!
+
+Aplicação web para catálogo de discos em React e Node.js.
+
 # Intruções
 
 ## Ambiente
 
 - Nodejs (>=8.12.0)
 - npm (>= 6.9.0)
-- MySQL (>= 8.0.16) rodando na porta default
+- MySQL (>= 8.0.16) rodando localmente na porta 3306
   - Nome do banco de dados: pd
   - Usuario: root
   - Senha: (sem senha)
@@ -51,3 +55,15 @@ npm start
 ## Pronto!
 
 A aplicação frontend estará rodando em localhost:3000
+
+# Testes
+
+## Testes do backend
+
+Os testes foram criados utilizando [Mocha](https://mochajs.org/ "Mochajs's Homepage"), [Chai](http://www.chaijs.com/ "chaijs's Homepage") e [SuperTest](https://github.com/visionmedia/supertest/ "Mochajs's Homepage")
+
+Para rodar os testes do backend, basta ir para a pasta `backend` e rodar o comando:
+
+```bash
+npm test
+```
