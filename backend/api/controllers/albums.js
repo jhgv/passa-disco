@@ -49,7 +49,12 @@ module.exports.createAlbum = async (req, res, next) => {
 
 module.exports.editAlbum = async (req, res, next) => {
   const { id } = req.params;
-  const queryUpdatedValues = sqlUtils.parseRequestBodyToUpdateValues(req.body);
+  const filePath = req.file ? req.file.path : 'NULL';
+  const reqBodyWithFilePath = { ...req.body, cover_image: filePath };
+  console.log(reqBodyWithFilePath);
+  const queryUpdatedValues = sqlUtils.parseRequestBodyToUpdateValues(
+    reqBodyWithFilePath
+  );
   var [result, fields] = await pool.query(
     `UPDATE album SET ${queryUpdatedValues} WHERE id=${id}`
   );

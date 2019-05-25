@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import album from '../../apis/album';
 
 class AlbumForm extends React.Component {
   renderError({ error, touched }) {
@@ -47,6 +48,25 @@ class AlbumForm extends React.Component {
     </div>
   );
 
+  renderInputFileHelperText() {
+    if (!this.props.initialValues) {
+      return null;
+    }
+    return (
+      <small id="emailHelp" className="form-text text-muted">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`${album.defaults.baseURL}/${
+            this.props.initialValues.cover_image
+          }`}
+        >
+          {this.props.initialValues.cover_image}
+        </a>
+      </small>
+    );
+  }
+
   onSubmit = formValues => {
     this.props.onSubmit(formValues);
   };
@@ -80,10 +100,11 @@ class AlbumForm extends React.Component {
           </div>
           <div className="form-group col-md-4">
             <Field
-              name="cover"
-              label="Cover"
+              name="cover_image"
+              label="Cover image"
               component={this.renderFileInput}
             />
+            {this.renderInputFileHelperText()}
           </div>
         </div>
         <Link to="/" className="btn btn-link mr-3">

@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({
-  dest: 'uploads/cover/',
+  storage,
   limits: {
     // 5mb
     fileSize: 1024 * 2014 * 5
@@ -23,8 +23,8 @@ const albumControllers = require('../controllers/albums');
 
 router.get('/', albumControllers.getAlbums);
 router.get('/:id', albumControllers.getAlbum);
-router.post('/', upload.single('cover'), albumControllers.createAlbum);
-router.patch('/:id', albumControllers.editAlbum);
+router.post('/', upload.single('cover_image'), albumControllers.createAlbum);
+router.patch('/:id', upload.single('cover_image'), albumControllers.editAlbum);
 router.delete('/:id', albumControllers.deleteAlbum);
 
 module.exports = router;

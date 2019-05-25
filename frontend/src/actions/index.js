@@ -29,7 +29,9 @@ export const fetchAlbum = albumId => async dispatch => {
 };
 
 export const updateAlbum = (albumId, formValues) => async dispatch => {
-  const response = await albumAPI.patch(`/album/${albumId}`, formValues);
+  const formData = new FormData();
+  Object.keys(formValues).forEach(key => formData.append(key, formValues[key]));
+  const response = await albumAPI.patch(`/album/${albumId}`, formData);
   dispatch({ type: UPDATE_ALBUM, payload: response.data });
   history.push('/');
 };

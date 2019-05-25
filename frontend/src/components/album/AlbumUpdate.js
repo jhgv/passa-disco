@@ -27,7 +27,7 @@ class AlbumUpdate extends React.Component {
             'artist',
             'genre',
             'year',
-            'cover'
+            'cover_image'
           )}
         />
       </div>
