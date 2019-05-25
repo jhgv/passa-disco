@@ -2,23 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
         <Link className="navbar-brand" to="/">
           Passa Disco!
         </Link>
         <div className="collapse navbar-collapse" id="navbarColor02">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
+            <li className="nav-item">
               <Link to="/" className="nav-link">
                 Home
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/album/create" className="nav-link">
+                <FontAwesomeIcon icon={faMusic} className="mr-1" />
                 Create Album
               </Link>
             </li>
