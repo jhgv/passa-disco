@@ -1,8 +1,10 @@
 const multer = require('multer');
+const mkdirp = require('mkdirp');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './uploads/cover/');
+    const dir = './uploads/cover/';
+    mkdirp(dir, err => cb(null, dir));
   },
   filename: (req, file, cb) => {
     cb(null, new Date().toISOString() + file.originalname);
