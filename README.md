@@ -67,3 +67,5 @@ Para rodar os testes do backend, basta ir para a pasta `backend` e rodar o coman
 ```bash
 npm test
 ```
+
+Por segurança, para evitar problemas com o banco principal, os testes devem ser rodados em uma base de teste. Por exemplo, um novo banco com nome 'pd_test' deve ser criado e em `backend/api/database.js`, mudar o nome do banco para 'pd_test'.
