@@ -5,17 +5,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
+import albumsAPI from '../../apis/album';
 
 class AlbumList extends React.Component {
   componentDidMount() {
     this.props.fetchAlbums();
   }
 
-  renderCover({ cover }) {
-    if (cover) {
+  renderCover({ cover_image }) {
+    if (cover_image) {
       return (
         <img
-          src={cover}
+          src={`${albumsAPI.defaults.baseURL}/${cover_image}`}
           className="card-img"
           alt="Cover"
           style={{ maxHeight: '15em' }}
@@ -26,6 +27,10 @@ class AlbumList extends React.Component {
   }
 
   renderAlbums() {
+    if (!this.props.albums) {
+      return <div>Loading albums...</div>;
+    }
+
     return this.props.albums.map(album => {
       return (
         <div className="col-sm-3 mb-3" key={album.id}>

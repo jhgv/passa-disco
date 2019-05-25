@@ -97,16 +97,20 @@ class AlbumForm extends React.Component {
 
 const validate = formValues => {
   const errors = {};
-  if (!formValues.title) {
-    errors.title = 'You must enter a title';
+  if (!formValues.name) {
+    errors.name = 'You must enter a name';
   }
 
   if (!formValues.artist) {
     errors.artist = 'You must enter an artist';
   }
 
-  if (!formValues.recorder) {
-    errors.recorder = 'You must enter a recorder company';
+  if (!formValues.genre) {
+    errors.genre = 'You must enter a genre';
+  }
+
+  if (!formValues.year) {
+    errors.year = 'You must enter a year';
   }
 
   return errors;

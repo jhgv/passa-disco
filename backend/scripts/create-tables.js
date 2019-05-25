@@ -15,6 +15,7 @@ createAlbumTable = conn => {
       artist VARCHAR(255) NOT NULL,
       year INT(4) NOT NULL,
       genre VARCHAR(50) NOT NULL,
+      cover_image VARCHAR(255),
       creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       last_update TIMESTAMP,
       PRIMARY KEY (id),
@@ -24,27 +25,7 @@ createAlbumTable = conn => {
 
   conn.query(sql, (error, results, fields) => {
     if (error) return console.log(error);
-    console.log('Album table created succesfuly!');
-  });
-};
-
-createAlbumCoverTable = conn => {
-  const sql = `  CREATE TABLE IF NOT EXISTS cover_file(
-    id INT AUTO_INCREMENT,
-    album_id INT,
-    name VARCHAR(255) NOT NULL,
-    type VARCHAR(100) NOT NULL,
-    size INT(11) NOT NULL,
-    creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
-    ); 
-  `;
-
-  conn.query(sql, (error, results, fields) => {
-    if (error) return console.log(error);
-    console.log(
-      'Album cover table created succesfuly!\n\nPress Ctrl + C to exit.'
-    );
+    console.log('Album table created succesfuly!\n\nPress Ctrl + C to exit.');
   });
 };
 
@@ -52,5 +33,4 @@ connection.connect(err => {
   if (err) return console.log(err);
   console.log('Database connected!');
   createAlbumTable(connection);
-  createAlbumCoverTable(connection);
 });
