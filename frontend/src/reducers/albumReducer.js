@@ -17,7 +17,7 @@ export default (state = {}, action) => {
     case FETCH_ALBUM:
       return { ...state, [action.payload.id]: action.payload };
     case FETCH_ALBUMS:
-      return action.payload;
+      return { ..._.mapKeys(action.payload, 'id') };
     case SEARCH_ALBUM:
       return action.payload;
     case DELETE_ALBUM:

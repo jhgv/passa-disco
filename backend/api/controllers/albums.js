@@ -49,7 +49,7 @@ module.exports.createAlbum = async (req, res, next) => {
 
 module.exports.editAlbum = async (req, res, next) => {
   const { id } = req.params;
-  const filePath = req.file ? req.file.path : 'NULL';
+  const filePath = req.file ? req.file.path : req.body.cover_image;
   const reqBodyWithFilePath = { ...req.body, cover_image: filePath };
   const queryUpdatedValues = sqlUtils.parseRequestBodyToUpdateValues(
     reqBodyWithFilePath
