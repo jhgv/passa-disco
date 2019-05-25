@@ -9,9 +9,9 @@ const defaultAlbum = {
 };
 
 let album = null;
+let albumIds = [];
 
 beforeEach(async () => {
-  await pool.query('DELETE FROM album');
   const [result, f] = await pool.query(
     'INSERT INTO album(name, artist, genre, year) VALUES (?,?,?,?)',
     [
@@ -21,6 +21,7 @@ beforeEach(async () => {
       defaultAlbum.year
     ]
   );
+  albumIds.push(result.insertId);
   const [rows, f2] = await pool.query(
     `SELECT * FROM album WHERE id = ${result.insertId}`
   );
@@ -28,7 +29,7 @@ beforeEach(async () => {
 });
 
 after(async () => {
-  await pool.query('DELETE FROM album');
+  await pool.query('DELETE FROM album WHERE id IN (?)', [albumIds]);
 });
 
 describe('Album', () => {
@@ -70,6 +71,7 @@ describe('Album', () => {
       .post(`/album`)
       .send(defaultAlbum)
       .end((err, res) => {
+        albumIds.push(res.body.id);
         chai.expect(res.body.name).to.be.eql(album.name);
         chai.expect(res.body.artist).to.be.eql(album.artist);
         chai.expect(res.body.genre).to.be.eql(album.genre);
