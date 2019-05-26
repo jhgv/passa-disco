@@ -2,7 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { fetchAlbums } from '../../actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
+import {
+  faImage,
+  faTrash,
+  faEdit,
+  faCompactDisc
+} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import SearchBar from '../SearchBar';
 import albumsAPI from '../../apis/album';
@@ -29,6 +34,17 @@ class AlbumList extends React.Component {
   renderAlbums() {
     if (!this.props.albums) {
       return <div>Loading albums...</div>;
+    }
+
+    if (this.props.albums.length === 0) {
+      return (
+        <div className="col-md-12 text-center mt-5">
+          <h5>No albums found :(</h5>
+          <Link to="album/create" class="btn btn-primary btn-lg">
+            <FontAwesomeIcon icon={faCompactDisc} /> Create album
+          </Link>
+        </div>
+      );
     }
 
     return this.props.albums.map(album => {
