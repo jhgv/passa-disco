@@ -13,6 +13,8 @@ Aplicação web para catálogo de discos em React e Node.js.
   - Usuario: root
   - Senha: (sem senha)
 
+Caso queira utilizar outra configuração para o banco de dados, basta modificar o arquivo `./backend/database.js`.
+
 ## Inicializando o banco de dados
 
 1. Rodar script de criação de tabelas no projecto `backend`

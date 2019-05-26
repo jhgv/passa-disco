@@ -1,36 +1,18 @@
-const mysql = require('mysql2');
+const fs = require('fs');
+const pool = require('../database');
 
-const connection = mysql.createConnection({
-  host: '127.0.0.1',
-  port: '3306',
-  user: 'root',
-  password: '',
-  database: 'pd'
-});
+const filesPath = require('path').dirname(require.main.filename);
+const albumTableSQL = fs
+  .readFileSync(filesPath + '/album-table.sql')
+  .toString();
 
-createAlbumTable = conn => {
-  const sql = `CREATE TABLE IF NOT EXISTS album(
-      id INT AUTO_INCREMENT,
-      name VARCHAR(255) NOT NULL,
-      artist VARCHAR(255) NOT NULL,
-      year INT(4) NOT NULL,
-      genre VARCHAR(50) NOT NULL,
-      cover_image VARCHAR(255),
-      creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      last_update TIMESTAMP,
-      PRIMARY KEY (id),
-      FULLTEXT (name, artist)
-  );
-  `;
-
-  conn.query(sql, (error, results, fields) => {
-    if (error) return console.log(error);
-    console.log('Album table created succesfuly!\n\nPress Ctrl + C to exit.');
-  });
+createAbumTable = async () => {
+  await pool.query(albumTableSQL);
 };
 
-connection.connect(err => {
-  if (err) return console.log(err);
-  console.log('Database connected!');
-  createAlbumTable(connection);
-});
+console.log('Creating tables');
+createAbumTable();
+console.log('Tables created.\nPress CTRL + C to exit or wait 2s');
+setTimeout(function() {
+  return process.exit(0);
+}, 2000);
