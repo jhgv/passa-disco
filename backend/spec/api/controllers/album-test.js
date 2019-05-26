@@ -1,4 +1,4 @@
-const pool = require('../../../api/database');
+const pool = require('../../../database');
 const chai = require('chai');
 
 const defaultAlbum = {

@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const files = require('../middleware/files');
 const albumControllers = require('../controllers/albums');
 const constants = require('../utils/constants');
+// multer middleware for request with files
+const files = require('../middleware/files');
 
 router.get('/', albumControllers.getAlbums);
 router.get('/:id', albumControllers.getAlbum);
