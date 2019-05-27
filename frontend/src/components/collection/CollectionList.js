@@ -1,8 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { fetchCollections, changeListText } from '../../actions/index';
 import CollectionCard from './CollectionCard';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
 
 class CollectionList extends React.Component {
   componentDidMount() {
@@ -37,16 +40,23 @@ class CollectionList extends React.Component {
     return (
       <div>
         <h2 className="text-center mb-3">Collections</h2>
-        <div className="card-columns text-center">
-          {this.renderCollections()}
+        <div className="text-center mb-5">
+          <Link
+            to={`/collection/create`}
+            className="btn btn-primary text-center"
+          >
+            <FontAwesomeIcon icon={faMusic} className="mr-1" />
+            Create Collection
+          </Link>
         </div>
+        <div className="text-center row">{this.renderCollections()}</div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-  return { collections: state.collections };
+  return { collections: Object.values(state.collections) };
 };
 
 export default connect(

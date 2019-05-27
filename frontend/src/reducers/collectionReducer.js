@@ -2,24 +2,28 @@ import {
   FETCH_COLLECTIONS,
   FETCH_COLLECTION_ALBUMS,
   FETCH_COLLECTION,
-  UPDATE_COLLECTION
+  UPDATE_COLLECTION,
+  CREATE_COLLECTION,
+  DELETE_COLLECTION
 } from '../actions/types';
 
-export const collectionReducers = (state = [], action) => {
+import _ from 'lodash';
+
+export const collectionReducers = (state = {}, action) => {
   switch (action.type) {
     case FETCH_COLLECTIONS:
-      return action.payload;
+      return { ..._.mapKeys(action.payload, 'id') };
+    case CREATE_COLLECTION:
+      return { ...state, [action.payload.id]: action.payload };
     case UPDATE_COLLECTION:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-export const fetchCollectionReducer = (state = {}, action) => {
-  switch (action.type) {
+      return { ...state, [action.payload.id]: action.payload };
+    case UPDATE_COLLECTION:
+      return { ...state, [action.payload.id]: action.payload };
     case FETCH_COLLECTION:
-      return action.payload;
+      return { ...state, [action.payload.id]: action.payload };
+    case DELETE_COLLECTION:
+      // payload is the id it self
+      return _.omit(state, action.payload);
     default:
       return state;
   }

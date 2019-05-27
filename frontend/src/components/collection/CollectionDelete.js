@@ -49,8 +49,8 @@ class CollectionDelete extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { collection: state.collection };
+const mapStateToProps = (state, ownProps) => {
+  return { collection: state.collections[ownProps.match.params.id] };
 };
 
 export default connect(

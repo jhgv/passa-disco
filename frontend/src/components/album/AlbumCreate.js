@@ -14,7 +14,7 @@ class AlbumCreate extends React.Component {
   render() {
     return (
       <div>
-        <h2>Create Album</h2>
+        <h2 className="text-center">Create Album</h2>
         <AlbumForm
           onSubmit={this.onSubmit}
           collectionId={this.props.match.params.id}

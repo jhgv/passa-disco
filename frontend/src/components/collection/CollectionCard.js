@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const CollectionCard = ({ collection, changeListText }) => {
   return (
-    <div className="card" key={collection.id}>
+    <div className="card col-md-4" key={collection.id}>
       <div className="card-body">
         <h5 className="card-title">{collection.name}</h5>
         <p className="card-text">

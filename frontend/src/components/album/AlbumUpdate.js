@@ -23,6 +23,7 @@ class AlbumUpdate extends React.Component {
     }
     return (
       <div>
+        <h2 className="text-center">Edit Album</h2>
         <AlbumForm
           onSubmit={this.onSubmit}
           collectionId={this.props.match.params.collectionId}

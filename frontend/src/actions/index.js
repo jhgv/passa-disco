@@ -8,7 +8,9 @@ import {
   FETCH_COLLECTIONS,
   FETCH_COLLECTION_ALBUMS,
   DELETE_COLLECTION,
-  FETCH_COLLECTION
+  FETCH_COLLECTION,
+  CREATE_COLLECTION,
+  UPDATE_COLLECTION
 } from './types';
 import history from '../history';
 
@@ -54,6 +56,21 @@ export const changeListText = value => ({
   type: CHANGE_LIST_TEXT,
   payload: value
 });
+
+export const createCollection = formValues => async dispatch => {
+  const response = await api.post('/collection', formValues);
+  dispatch({ type: CREATE_COLLECTION, payload: response.data });
+  history.push('/');
+};
+
+export const updateCollection = (
+  collectionId,
+  formValues
+) => async dispatch => {
+  const response = await api.patch(`/collection/${collectionId}`, formValues);
+  dispatch({ type: UPDATE_COLLECTION, payload: response.data });
+  history.push('/');
+};
 
 export const fetchCollections = () => async dispatch => {
   const response = await api.get('/collection');

@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 import CollectionList from './collection/CollectionList';
 import CollectionDelete from './collection/CollectionDelete';
+import CollectionCreate from './collection/CollectionCreate';
+import CollectionUpdate from './collection/CollectionUpdate';
 
 const App = () => {
   return (
@@ -24,6 +26,12 @@ const App = () => {
         </div>
         <div className="container">
           <Route path="/" exact component={CollectionList} />
+          <Route path="/collection/create" exact component={CollectionCreate} />
+          <Route
+            path="/collection/update/:id"
+            exact
+            component={CollectionUpdate}
+          />
           <Route
             path="/collection/delete/:id"
             exact
