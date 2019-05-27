@@ -1,6 +1,5 @@
 import {
   CREATE_ALBUM,
-  FETCH_ALBUMS,
   FETCH_ALBUM,
   UPDATE_ALBUM,
   DELETE_ALBUM,
@@ -16,8 +15,6 @@ export default (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload };
     case FETCH_ALBUM:
       return { ...state, [action.payload.id]: action.payload };
-    case FETCH_ALBUMS:
-      return { ..._.mapKeys(action.payload, 'id') };
     case SEARCH_ALBUM:
       return action.payload;
     case DELETE_ALBUM:

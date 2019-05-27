@@ -22,7 +22,10 @@ class AlbumDelete extends React.Component {
         <h6>
           {this.props.album.artist} - {this.props.album.name}
         </h6>
-        <Link to="/" className="btn btn-outline-secondary btn-lg mr-2">
+        <Link
+          to={`/collection/${this.props.match.params.collectionId}/albums`}
+          className="btn btn-outline-secondary btn-lg mr-2"
+        >
           Cancel
         </Link>
         <button

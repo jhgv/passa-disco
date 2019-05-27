@@ -26,15 +26,13 @@ module.exports.createAlbum = async (req, res, next) => {
   // If not cover image was given, set the value as NULL
   const filePath = req.file ? pool.escape(req.file.path) : 'NULL';
   const [result, fields] = await pool.query(
-    'INSERT INTO album(collection_id, name, artist, year, genre, cover_image) VALUES(?,?,?,?,?,?)',
-    [
-      pool.escape(req.body.collection),
-      pool.escape(req.body.name),
-      pool.escape(req.body.artist),
-      pool.escape(req.body.year),
-      pool.escape(req.body.genre),
-      filePath
-    ]
+    `INSERT INTO album(collection_id, name, artist, year, genre, cover_image) VALUES(${pool.escape(
+      req.body.collection
+    )},${pool.escape(req.body.name)},${pool.escape(
+      req.body.artist
+    )},${pool.escape(req.body.year)},${pool.escape(
+      req.body.genre
+    )},${filePath})`
   );
   // Return the created album with its id
   res.send({ ...req.body, id: result.insertId });

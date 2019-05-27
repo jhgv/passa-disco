@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
-import album from '../../apis/album';
+import album from '../../apis/api';
 
 class AlbumForm extends React.Component {
   renderError({ error, touched }) {
@@ -107,7 +107,10 @@ class AlbumForm extends React.Component {
             {this.renderInputFileHelperText()}
           </div>
         </div>
-        <Link to="/" className="btn btn-link mr-3">
+        <Link
+          to={`/collection/${this.props.collectionId}/albums`}
+          className="btn btn-link mr-3"
+        >
           Back
         </Link>
         <button className="btn btn-primary">Submit</button>

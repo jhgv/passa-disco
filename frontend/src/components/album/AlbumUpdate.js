@@ -10,7 +10,11 @@ class AlbumUpdate extends React.Component {
   }
 
   onSubmit = formValues => {
-    this.props.updateAlbum(this.props.match.params.id, formValues);
+    this.props.updateAlbum(
+      this.props.match.params.id,
+      this.props.match.params.collectionId,
+      formValues
+    );
   };
 
   render() {
@@ -21,6 +25,7 @@ class AlbumUpdate extends React.Component {
       <div>
         <AlbumForm
           onSubmit={this.onSubmit}
+          collectionId={this.props.match.params.collectionId}
           initialValues={_.pick(
             this.props.album,
             'name',

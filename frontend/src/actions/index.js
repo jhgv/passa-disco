@@ -1,53 +1,77 @@
-import albumAPI from '../apis/album';
+import api from '../apis/api';
 import {
   CREATE_ALBUM,
   FETCH_ALBUM,
-  FETCH_ALBUMS,
   UPDATE_ALBUM,
   DELETE_ALBUM,
-  SEARCH_ALBUM,
-  CHANGE_LIST_TEXT
+  CHANGE_LIST_TEXT,
+  FETCH_COLLECTIONS,
+  FETCH_COLLECTION_ALBUMS,
+  DELETE_COLLECTION,
+  FETCH_COLLECTION
 } from './types';
 import history from '../history';
 
 export const createAlbum = formValues => async (dispatch, getState) => {
   const formData = new FormData();
   Object.keys(formValues).forEach(key => formData.append(key, formValues[key]));
-  const response = await albumAPI.post('/album', formData);
+  const response = await api.post('/album', formData);
   dispatch({ type: CREATE_ALBUM, payload: response.data });
-  history.push('/');
-};
-
-export const fetchAlbums = () => async dispatch => {
-  const response = await albumAPI.get('/album');
-  dispatch({ type: FETCH_ALBUMS, payload: response.data });
+  history.push(`/collection/${formValues.collection}/albums`);
 };
 
 export const fetchAlbum = albumId => async dispatch => {
-  const response = await albumAPI.get(`/album/${albumId}`);
+  const response = await api.get(`/album/${albumId}`);
   dispatch({ type: FETCH_ALBUM, payload: response.data });
 };
 
-export const updateAlbum = (albumId, formValues) => async dispatch => {
+export const updateAlbum = (
+  albumId,
+  collectionId,
+  formValues
+) => async dispatch => {
   const formData = new FormData();
   Object.keys(formValues).forEach(key => formData.append(key, formValues[key]));
-  const response = await albumAPI.patch(`/album/${albumId}`, formData);
+  const response = await api.patch(`/album/${albumId}`, formData);
   dispatch({ type: UPDATE_ALBUM, payload: response.data });
-  history.push('/');
+  history.push(`/collection/${collectionId}/albums`);
 };
 
 export const deleteAlbum = albumId => async dispatch => {
-  await albumAPI.delete(`/album/${albumId}`);
+  await api.delete(`/album/${albumId}`);
   dispatch({ type: DELETE_ALBUM, payload: albumId });
   history.push('/');
 };
 
-export const searchAlbums = search => async dispatch => {
-  const response = await albumAPI.get(`/album?q=${search}`);
-  dispatch({ type: SEARCH_ALBUM, payload: response.data });
+export const searchAlbums = (collectionId, search) => async dispatch => {
+  const response = await api.get(
+    `/collection/${collectionId}/albums?q=${search}`
+  );
+  dispatch({ type: FETCH_COLLECTION_ALBUMS, payload: response.data });
 };
 
 export const changeListText = value => ({
   type: CHANGE_LIST_TEXT,
   payload: value
 });
+
+export const fetchCollections = () => async dispatch => {
+  const response = await api.get('/collection');
+  dispatch({ type: FETCH_COLLECTIONS, payload: response.data });
+};
+
+export const fetchCollectionAlbums = collectionId => async dispatch => {
+  const response = await api.get(`/collection/${collectionId}/albums`);
+  dispatch({ type: FETCH_COLLECTION_ALBUMS, payload: response.data });
+};
+
+export const fetchCollection = collectionId => async dispatch => {
+  const response = await api.get(`/collection/${collectionId}`);
+  dispatch({ type: FETCH_COLLECTION, payload: response.data });
+};
+
+export const deleteCollection = collectionId => async dispatch => {
+  await api.delete(`/collection/${collectionId}`);
+  dispatch({ type: DELETE_COLLECTION, payload: collectionId });
+  history.push('/');
+};

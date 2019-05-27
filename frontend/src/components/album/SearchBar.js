@@ -4,15 +4,19 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 
-import { searchAlbums, fetchAlbums, changeListText } from '../actions';
+import {
+  searchAlbums,
+  fetchCollectionAlbums,
+  changeListText
+} from '../../actions';
 
 class SearchBar extends React.Component {
   onChange = (event, value) => {
     if (!value) {
-      this.props.fetchAlbums();
-      this.props.changeListText('Collection');
+      this.props.fetchCollectionAlbums(this.props.collectionId);
+      this.props.changeListText('Albums');
     } else {
-      this.props.searchAlbums(value);
+      this.props.searchAlbums(this.props.collectionId, value);
       this.props.changeListText(`Search results for "${value}"`);
     }
   };
@@ -49,11 +53,11 @@ class SearchBar extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { albums: Object.values(state.albums) };
+  return { albums: state.collectionAlbums };
 };
 
 const searchBarFormWrapped = reduxForm({ form: 'searchAlbums' })(SearchBar);
 export default connect(
   mapStateToProps,
-  { searchAlbums, fetchAlbums, changeListText }
+  { searchAlbums, fetchCollectionAlbums, changeListText }
 )(searchBarFormWrapped);

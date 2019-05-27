@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-import albumsAPI from '../../apis/album';
+import albumsAPI from '../../apis/api';
 
 const renderCover = ({ cover_image }) => {
   if (cover_image) {
@@ -19,7 +19,7 @@ const renderCover = ({ cover_image }) => {
   return <FontAwesomeIcon icon={faImage} style={{ fontSize: '15em' }} />;
 };
 
-const AlbumCard = ({ album }) => {
+const AlbumCard = ({ album, collectionId }) => {
   return (
     <div className="col-sm-3 mb-3">
       <div className="card" style={{ width: '15rem' }}>
@@ -34,13 +34,13 @@ const AlbumCard = ({ album }) => {
           </p>
 
           <Link
-            to={`/album/update/${album.id}`}
+            to={`/collection/${collectionId}/album/update/${album.id}`}
             className="btn btn-outline-warning btn-sm mr-2"
           >
             <FontAwesomeIcon icon={faEdit} />
           </Link>
           <Link
-            to={`/album/delete/${album.id}`}
+            to={`/collection/${collectionId}/album/delete/${album.id}`}
             className="btn btn-outline-danger btn-sm"
           >
             <FontAwesomeIcon icon={faTrash} />

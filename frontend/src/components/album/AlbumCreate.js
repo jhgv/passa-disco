@@ -5,14 +5,20 @@ import { createAlbum } from '../../actions';
 
 class AlbumCreate extends React.Component {
   onSubmit = formValues => {
-    this.props.createAlbum(formValues);
+    this.props.createAlbum({
+      ...formValues,
+      collection: this.props.match.params.id
+    });
   };
 
   render() {
     return (
       <div>
         <h2>Create Album</h2>
-        <AlbumForm onSubmit={this.onSubmit} />
+        <AlbumForm
+          onSubmit={this.onSubmit}
+          collectionId={this.props.match.params.id}
+        />
       </div>
     );
   }
