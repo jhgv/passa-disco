@@ -13,8 +13,6 @@ export default (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload };
     case UPDATE_ALBUM:
       return { ...state, [action.payload.id]: action.payload };
-    case UPDATE_ALBUM:
-      return { ...state, [action.payload.id]: action.payload };
     case FETCH_ALBUM:
       return { ...state, [action.payload.id]: action.payload };
     case SEARCH_ALBUM:

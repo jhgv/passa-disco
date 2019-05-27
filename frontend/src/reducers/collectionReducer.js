@@ -17,8 +17,6 @@ export const collectionReducers = (state = {}, action) => {
       return { ...state, [action.payload.id]: action.payload };
     case UPDATE_COLLECTION:
       return { ...state, [action.payload.id]: action.payload };
-    case UPDATE_COLLECTION:
-      return { ...state, [action.payload.id]: action.payload };
     case FETCH_COLLECTION:
       return { ...state, [action.payload.id]: action.payload };
     case DELETE_COLLECTION:
