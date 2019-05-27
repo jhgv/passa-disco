@@ -34,8 +34,14 @@ module.exports.createAlbum = async (req, res, next) => {
       req.body.genre
     )},${filePath})`
   );
+
+  const [rows, f] = await pool.query(
+    `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE id=${
+      result.insertId
+    }`
+  );
   // Return the created album with its id
-  res.send({ ...req.body, id: result.insertId });
+  res.send(rows[0]);
 };
 
 module.exports.editAlbum = async (req, res, next) => {
