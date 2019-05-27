@@ -74,7 +74,6 @@ describe('Album', () => {
       .post(`/album`)
       .send(defaultAlbum)
       .end((err, res) => {
-        console.log(res.body);
         albumIds.push(res.body.id);
         chai.expect(res.body.name).to.be.eql(album.name);
         chai.expect(res.body.artist).to.be.eql(album.artist);
