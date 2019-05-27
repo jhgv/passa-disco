@@ -30,11 +30,11 @@ module.exports.getCollectionAlbums = async (req, res, next) => {
   if (req.query && req.query.hasOwnProperty('q')) {
     const textQuery = req.query.q;
     [rows, fields] = await pool.query(
-      `SELECT id, collection_id, name, year, artist, genre, creation_date, cover_image FROM album WHERE collection_id = ${id} AND MATCH (name, artist) AGAINST ('${textQuery}*' IN BOOLEAN MODE) ORDER BY creation_date DESC`
+      `SELECT id, collection_id, name, year, artist, genre, cover_image, creation_date, cover_image FROM album WHERE collection_id = ${id} AND MATCH (name, artist) AGAINST ('${textQuery}*' IN BOOLEAN MODE) ORDER BY creation_date DESC`
     );
   } else {
     [rows, fields] = await pool.query(
-      `SELECT id, collection_id, name, year, artist, genre, creation_date, cover_image FROM album WHERE collection_id=${id} ORDER BY creation_date DESC`
+      `SELECT id, collection_id, name, year, artist, genre, cover_image, creation_date, cover_image FROM album WHERE collection_id=${id} ORDER BY creation_date DESC`
     );
   }
   res.send(rows);

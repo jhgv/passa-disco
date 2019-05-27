@@ -40,7 +40,15 @@ module.exports.createAlbum = async (req, res, next) => {
 
 module.exports.editAlbum = async (req, res, next) => {
   const { id } = req.params;
-  const filePath = req.file ? req.file.path : req.body.cover_image;
+  let filePath;
+  if (req.file) {
+    filePath = req.file.path;
+  } else if (req.body.cover_image) {
+    filePath = req.body.cover_image;
+  } else {
+    filePath = 'NULL';
+  }
+
   // Adding the filepath to the request payload object
   const reqBodyWithFilePath = { ...req.body, cover_image: filePath };
   // convert the object into the sql statement for only the given fields to update
