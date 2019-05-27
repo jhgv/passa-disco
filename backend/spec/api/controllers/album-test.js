@@ -1,20 +1,33 @@
 const pool = require('../../../database');
 const chai = require('chai');
 
-const defaultAlbum = {
-  name: 'This in an test album',
+const defaultCollection = {
+  name: 'This is a test collection'
+};
+
+let defaultAlbum = {
+  name: 'This is a test album',
   artist: 'TestArtist',
   year: 2018,
   genre: 'Rock'
 };
 
 let album = null;
+let collectionId = null;
 let albumIds = [];
 
 beforeEach(async () => {
-  const [result, f] = await pool.query(
-    'INSERT INTO album(name, artist, genre, year) VALUES (?,?,?,?)',
+  const [collectionResult, f] = await pool.query(
+    'INSERT INTO collection(name) VALUES (?)',
+    [defaultCollection.name]
+  );
+  collectionId = collectionResult.insertId;
+  defaultAlbum.collection = collectionId;
+
+  const [result, fields] = await pool.query(
+    'INSERT INTO album(collection_id, name, artist, genre, year) VALUES (?,?,?,?,?)',
     [
+      collectionId,
       defaultAlbum.name,
       defaultAlbum.artist,
       defaultAlbum.genre,
@@ -33,16 +46,6 @@ after(async () => {
 });
 
 describe('Album', () => {
-  it('GET /album should return a list of albums', done => {
-    request.get('/album').end((err, res) => {
-      chai.expect(res.body[0].name).to.be.eql(album.name);
-      chai.expect(res.body[0].artist).to.be.eql(album.artist);
-      chai.expect(res.body[0].genre).to.be.eql(album.genre);
-      chai.expect(res.body[0].year).to.be.eql(album.year);
-      done(err);
-    });
-  });
-
   it('GET /album/:id should return a single album', done => {
     request.get(`/album/${album.id}`).end((err, res) => {
       chai.expect(res.body.id).to.be.eql(album.id);
@@ -71,6 +74,7 @@ describe('Album', () => {
       .post(`/album`)
       .send(defaultAlbum)
       .end((err, res) => {
+        console.log(res.body);
         albumIds.push(res.body.id);
         chai.expect(res.body.name).to.be.eql(album.name);
         chai.expect(res.body.artist).to.be.eql(album.artist);
@@ -90,6 +94,7 @@ describe('Album', () => {
           errors: {
             name: 'Name is required',
             artist: 'Artist name is required',
+            collection: 'Collection id is required',
             genre: 'Genre is required',
             year: 'Year is required'
           }
