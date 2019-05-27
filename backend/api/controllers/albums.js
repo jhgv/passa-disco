@@ -40,22 +40,22 @@ module.exports.createAlbum = async (req, res, next) => {
     )},${filePath})`
   );
 
-  const rows = await getAlbumById(id);
+  const rows = await getAlbumById(result.insertId);
   // Return the created album
   res.send(rows[0]);
 };
 
 module.exports.editAlbum = async (req, res, next) => {
   const { id } = req.params;
+  console.log(req.body);
   let filePath;
   if (req.file) {
     filePath = req.file.path;
-  } else if (req.body.cover_image) {
+  } else if (req.body.cover_image && req.body.cover_image !== 'null') {
     filePath = req.body.cover_image;
   } else {
     filePath = 'NULL';
   }
-
   // Adding the filepath to the request payload object
   const reqBodyWithFilePath = { ...req.body, cover_image: filePath };
   // convert the object into the sql statement for only the given fields to update

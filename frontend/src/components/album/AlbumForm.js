@@ -49,7 +49,10 @@ class AlbumForm extends React.Component {
   );
 
   renderInputFileHelperText() {
-    if (!this.props.initialValues) {
+    if (
+      !this.props.initialValues ||
+      this.props.initialValues.cover_image === 'null'
+    ) {
       return null;
     }
     return (
