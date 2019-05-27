@@ -15,16 +15,6 @@ Aplicação web para catálogo de discos em React e Node.js.
 
 Caso queira utilizar outra configuração para o banco de dados, basta modificar o arquivo `./backend/database.js`.
 
-## Inicializando o banco de dados
-
-1. Rodar script de criação de tabelas no projecto `backend`
-
-```bash
-node backend/scripts/create-tables.js
-```
-
-2. Apertar CTRL + C para sair
-
 ## Inicializando o backend
 
 1. Ir para pasta backend
@@ -42,6 +32,16 @@ Optionalmente, pode-se utilizar o `nodemon`
 npm install --save-dev nodemon
 nodemon server.js
 ```
+
+## Inicializando o banco de dados
+
+1. Rodar script de criação de tabelas no projecto `backend`
+
+```bash
+node backend/scripts/create-tables.js
+```
+
+2. Apertar CTRL + C para sair
 
 ## Inicializando o frontend
 

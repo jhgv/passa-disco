@@ -3,11 +3,16 @@ const validators = require('../utils/validators');
 const sqlUtils = require('../utils/sqlUtils');
 const querystring = require('querystring');
 
+const getAlbumById = async albumId => {
+  const [rows, fields] = await pool.query(
+    `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE id=${albumId}`
+  );
+  return rows;
+};
+
 module.exports.getAlbum = async (req, res, next) => {
   const { id } = req.params;
-  const [rows, fields] = await pool.query(
-    `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE id=${id}`
-  );
+  const rows = await getAlbumById(id);
   // Check if the query returned the album for the given id
   if (!rows || rows.length === 0) {
     res.status(404);
@@ -35,12 +40,8 @@ module.exports.createAlbum = async (req, res, next) => {
     )},${filePath})`
   );
 
-  const [rows, f] = await pool.query(
-    `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE id=${
-      result.insertId
-    }`
-  );
-  // Return the created album with its id
+  const rows = await getAlbumById(id);
+  // Return the created album
   res.send(rows[0]);
 };
 
