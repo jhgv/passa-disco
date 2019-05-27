@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 const albumRoutes = require('./api/routes/albums');
+const collectionRoutes = require('./api/routes/collection');
 
 // Setting  middlewares for the requests
 app.use(morgan('dev'));
@@ -15,8 +16,9 @@ app.use(bodyParser.json());
 // Change here if new hosts start using this API
 app.use(cors({ origin: 'http://localhost:3000' }));
 
-// Album API routes
+// API routes
 app.use('/album', albumRoutes);
+app.use('/collection', collectionRoutes);
 
 // If no route matches the request URL
 app.use((req, res, next) => {

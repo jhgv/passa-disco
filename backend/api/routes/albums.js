@@ -6,7 +6,6 @@ const constants = require('../utils/constants');
 // multer middleware for request with files
 const files = require('../middleware/files');
 
-router.get('/', albumControllers.getAlbums);
 router.get('/:id', albumControllers.getAlbum);
 router.post(
   '/',

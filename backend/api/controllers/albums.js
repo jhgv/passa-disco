@@ -3,23 +3,6 @@ const validators = require('../utils/validators');
 const sqlUtils = require('../utils/sqlUtils');
 const querystring = require('querystring');
 
-module.exports.getAlbums = async (req, res, next) => {
-  let rows = [],
-    fields = [];
-  // Look for the 'q' parameter to determine if it is a text search
-  if (req.query && req.query.hasOwnProperty('q')) {
-    const textQuery = req.query.q;
-    [rows, fields] = await pool.query(
-      `SELECT id, name, year, artist, genre, creation_date, cover_image FROM album WHERE MATCH (name, artist) AGAINST ('${textQuery}*' IN BOOLEAN MODE) ORDER BY creation_date DESC`
-    );
-  } else {
-    [rows, fields] = await pool.query(
-      'SELECT id, name, year, artist, genre, creation_date, cover_image FROM album ORDER BY creation_date DESC'
-    );
-  }
-  res.send(rows);
-};
-
 module.exports.getAlbum = async (req, res, next) => {
   const { id } = req.params;
   const [rows, fields] = await pool.query(
@@ -43,12 +26,15 @@ module.exports.createAlbum = async (req, res, next) => {
   // If not cover image was given, set the value as NULL
   const filePath = req.file ? pool.escape(req.file.path) : 'NULL';
   const [result, fields] = await pool.query(
-    `INSERT INTO album(name, artist, year, genre, cover_image) VALUES(
-        ${pool.escape(req.body.name)},${pool.escape(
-      req.body.artist
-    )},${pool.escape(req.body.year)},${pool.escape(
-      req.body.genre
-    )}, ${filePath})`
+    'INSERT INTO album(collection_id, name, artist, year, genre, cover_image) VALUES(?,?,?,?,?,?)',
+    [
+      pool.escape(req.body.collection),
+      pool.escape(req.body.name),
+      pool.escape(req.body.artist),
+      pool.escape(req.body.year),
+      pool.escape(req.body.genre),
+      filePath
+    ]
   );
   // Return the created album with its id
   res.send({ ...req.body, id: result.insertId });

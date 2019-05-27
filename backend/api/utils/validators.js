@@ -1,5 +1,14 @@
-module.exports.validatePostAlbum = ({ name, artist, genre, year }) => {
+module.exports.validatePostAlbum = ({
+  collection,
+  name,
+  artist,
+  genre,
+  year
+}) => {
   let errors = {};
+  if (!collection) {
+    errors.collection = 'Collection id is required';
+  }
   if (!name) {
     errors.name = 'Name is required';
   }
@@ -15,5 +24,13 @@ module.exports.validatePostAlbum = ({ name, artist, genre, year }) => {
     errors.year = 'Year is required';
   }
 
+  return errors;
+};
+
+module.exports.validatePostCollection = ({ name }) => {
+  let errors = {};
+  if (!name) {
+    errors.name = 'Name is required';
+  }
   return errors;
 };
