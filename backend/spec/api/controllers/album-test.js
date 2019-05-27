@@ -15,6 +15,7 @@ let defaultAlbum = {
 let album = null;
 let collectionId = null;
 let albumIds = [];
+let collectionIds = [];
 
 beforeEach(async () => {
   const [collectionResult, f] = await pool.query(
@@ -22,6 +23,7 @@ beforeEach(async () => {
     [defaultCollection.name]
   );
   collectionId = collectionResult.insertId;
+  collectionIds.push(collectionId);
   defaultAlbum.collection = collectionId;
 
   const [result, fields] = await pool.query(
@@ -43,6 +45,7 @@ beforeEach(async () => {
 
 after(async () => {
   await pool.query('DELETE FROM album WHERE id IN (?)', [albumIds]);
+  await pool.query('DELETE FROM collection WHERE id IN (?)', [collectionIds]);
 });
 
 describe('Album', () => {
